@@ -30,7 +30,6 @@ class Api::V1::UsersController < ApplicationController
       user.boardgames << new_game
       user_boardgame = user.user_boardgames.last
       user_boardgame.update_attributes(user_boardgame_params)
-      byebug
       render json: new_game.package_json
     else
       render json: {error: 'Invalid Game Input', status: '400'}
