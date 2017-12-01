@@ -11,7 +11,7 @@ class Api::V1::UsersController < ApplicationController
 
   def show
     user = User.find(params[:id])
-    render json: user.to_json(include: [:user_boardgames])
+    render json: {user: user, boardgames: user.package_json}
   end
 
   def update
