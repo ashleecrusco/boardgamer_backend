@@ -8,8 +8,8 @@ Rails.application.routes.draw do
 
       get '/users/:id/createboardgame' => 'users#createBoardgame'
       post '/users/:id/createboardgame' => 'users#createBoardgame'
-      post '/auth', to: 'sessions#create'
-      get '/current_user', to: 'sessions#show'
+      post '/auth' => 'sessions#create'
+      get '/current_user' => 'sessions#show'
     end
   end
 end
