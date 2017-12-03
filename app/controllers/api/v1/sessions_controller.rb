@@ -2,10 +2,9 @@ class Api::V1::SessionsController < ApplicationController
   # skip_before_action :authorized, only: [:create]
 
   def show
-    render json: {
-      id: current_user.id,
-      username: current_user.username
-    }
+    token = request.headers['Authorization']
+    user = User.find_by(id: token.to_i)
+    render json: {user_info: user, user_games: user.package_json}
   end
 
   def create
