@@ -10,6 +10,9 @@ Rails.application.routes.draw do
       post '/users/:id/createboardgame' => 'users#createBoardgame'
       post '/auth' => 'sessions#create'
       get '/current_user' => 'sessions#show'
+
+      get '/users/new' => 'users#new'
+      post '/users/create' => 'users#createUser'
     end
   end
 end

@@ -5,8 +5,14 @@ class Api::V1::UsersController < ApplicationController
     render json: users.to_json(include: [:user_boardgames])
   end
 
-  def create
-    user = User.new
+  def createUser
+    user = User.new(user_params)
+    if user.valid?
+      user.save
+      render json: user.package_json
+    else
+      render json: {error: 'Invalid User Input', status: '400'}
+    end
   end
 
   def show
@@ -46,5 +52,7 @@ class Api::V1::UsersController < ApplicationController
     params.require(:form).permit(:wishlist, :owned, :favorite)
   end
 
-
+  def user_params
+    params.require(:form).permit(:first_name, :last_name, :username, :password, :profile_image_url)
+  end
 end
