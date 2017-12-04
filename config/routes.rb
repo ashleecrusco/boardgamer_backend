@@ -13,6 +13,9 @@ Rails.application.routes.draw do
 
       get '/users/new' => 'users#new'
       post '/users/create' => 'users#createUser'
+
+      get '/addtocollection' => 'users#addToCollection'
+      post '/addtocollection' => 'users#addToCollection'
     end
   end
 end
