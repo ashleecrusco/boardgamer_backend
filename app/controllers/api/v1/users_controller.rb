@@ -6,7 +6,7 @@ class Api::V1::UsersController < ApplicationController
   end
 
   def createUser
-    user = User.new(user_params)
+    user = User.new(create_user_params)
     if user.valid?
       user.save
       render json: user.package_json
@@ -59,7 +59,7 @@ class Api::V1::UsersController < ApplicationController
     params.require(:form).permit(:wishlist, :owned, :favorite)
   end
 
-  def user_params
+  def create_user_params
     params.require(:form).permit(:first_name, :last_name, :username, :password, :profile_image_url)
   end
 
