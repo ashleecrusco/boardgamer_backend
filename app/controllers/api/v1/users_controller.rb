@@ -16,14 +16,21 @@ class Api::V1::UsersController < ApplicationController
   end
 
   def show
-    user = User.find(params[:id])
+    user = User.find(user_params[:id])
     render json: {user: user, boardgames: user.package_json}
   end
 
   def update
-    byebug
-    user = User.find(params[:id])
+    user = User.find(user_params[:id])
     user.update(params)
+  end
+
+  def addToCollection
+    game = Boardgame.find(collection_game_params[:id].to_i)
+    user = User.find(collection_user_params[:user_id])
+    if !user.boardgames.include?(game)
+      user.boardgames << game
+    end
   end
 
   def createBoardgame
@@ -54,5 +61,17 @@ class Api::V1::UsersController < ApplicationController
 
   def user_params
     params.require(:form).permit(:first_name, :last_name, :username, :password, :profile_image_url)
+  end
+
+  def collection_game_params
+    params.require(:game).permit(:id)
+  end
+
+  def collection_user_params
+    params.permit(:user_id)
+  end
+
+  def user_params
+    params.permit(:id)
   end
 end
