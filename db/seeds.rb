@@ -28,7 +28,15 @@ josh = User.create(username: 'Jish', first_name: 'Joshua', last_name: 'Denenberg
 
 ashlee.boardgames << codenames
 ashlee.boardgames << dominion
+ashlee.user_boardgames.each do |join|
+  join.owned = true
+  join.save
+end
 
 josh.boardgames << dominion
 josh.boardgames << catan
 josh.boardgames << codenames
+josh.user_boardgames.each do |join|
+  join.owned = true
+  join.save
+end
