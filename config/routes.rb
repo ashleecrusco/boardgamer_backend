@@ -17,6 +17,9 @@ Rails.application.routes.draw do
       get '/addtocollection' => 'users#addToCollection'
       post '/addtocollection' => 'users#addToCollection'
 
+      get '/removefromcollection' => 'users#removeFromCollection'
+      post '/removefromcollection' => 'users#removeFromCollection'
+
       get '/updateattribute' => 'users#updateAttribute'
       post '/updateattribute' => 'users#updateAttribute'
 
