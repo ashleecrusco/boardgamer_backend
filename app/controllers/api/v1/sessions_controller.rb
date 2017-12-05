@@ -4,7 +4,7 @@ class Api::V1::SessionsController < ApplicationController
   def show
     token = request.headers['Authorization']
     user = User.find_by(id: token.to_i)
-    render json: {user_info: user, user_games: user.package_json}
+    render json: {user_info: user, user_games: user.package_json, friends: user.friends}
   end
 
   def create
