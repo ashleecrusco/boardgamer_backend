@@ -16,6 +16,10 @@ Rails.application.routes.draw do
 
       get '/addtocollection' => 'users#addToCollection'
       post '/addtocollection' => 'users#addToCollection'
+
+      get '/updateattribute' => 'users#updateAttribute'
+      post '/updateattribute' => 'users#updateAttribute'
+
     end
   end
 end

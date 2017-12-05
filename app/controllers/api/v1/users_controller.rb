@@ -36,6 +36,10 @@ class Api::V1::UsersController < ApplicationController
     gameToUpdate.update_attributes(owned: true)
   end
 
+  def updateAttribute
+    byebug
+  end
+
   def createBoardgame
     user = User.find(params['id'].to_i)
     new_game = Boardgame.new(game_params)
