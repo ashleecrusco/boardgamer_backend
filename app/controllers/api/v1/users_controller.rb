@@ -49,12 +49,21 @@ class Api::V1::UsersController < ApplicationController
 
 
   def updateAttribute
+    byebug
     user = User.find(update_attribute_params[:user])
     attribute = update_attribute_params[:attribute]
     game = Boardgame.find(update_attribute_params[:game])
-    relation = user.user_boardgames.find_by(boardgame_id: game.id)
-    relation[attribute] = !relation[attribute]
-    relation.update_attributes("#{attribute}": relation[attribute])
+    if user.user_boardgames.find_by(boardgame_id: game.id)
+      relation = user.user_boardgames.find_by(boardgame_id: game.id)
+      relation[attribute] = !relation[attribute]
+      relation.update_attributes("#{attribute}": relation[attribute])
+    else
+      user.boardgames << game
+      gameId = user.boardgames.find_by(name: game.name).id
+      gameToUpdate = user.user_boardgames.find_by(boardgame_id: gameId)
+      gameToUpdate[attribute] = !gameToUpdate[attribute]
+      gameToUpdate.update_attributes(owned: false, "#{attribute}": gameToUpdate[attribute])
+    end
   end
 
   def createBoardgame
