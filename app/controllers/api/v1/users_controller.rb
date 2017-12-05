@@ -37,7 +37,12 @@ class Api::V1::UsersController < ApplicationController
   end
 
   def updateAttribute
-    byebug
+    user = User.find(update_attribute_params[:user])
+    attribute = update_attribute_params[:attribute]
+    game = Boardgame.find(update_attribute_params[:game])
+    relation = user.user_boardgames.find_by(boardgame_id: game.id)
+    relation[attribute] = !relation[attribute]
+    relation.update_attributes("#{attribute}": relation[attribute])
   end
 
   def createBoardgame
@@ -81,5 +86,9 @@ class Api::V1::UsersController < ApplicationController
 
   def user_params
     params.permit(:id)
+  end
+
+  def update_attribute_params
+    params.permit(:attribute, :user, :game)
   end
 end
