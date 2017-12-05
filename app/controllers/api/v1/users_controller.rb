@@ -17,7 +17,7 @@ class Api::V1::UsersController < ApplicationController
 
   def show
     user = User.find(user_params[:id])
-    render json: {user: user, boardgames: user.package_json}
+    render json: {user: user, boardgames: user.package_json, friends: user.friends}
   end
 
   def update
@@ -36,6 +36,7 @@ class Api::V1::UsersController < ApplicationController
   def createBoardgame
     user = User.find(params['id'].to_i)
     new_game = Boardgame.new(game_params)
+    byebug
 
     if new_game.valid?
       new_game.slug = params['form']['name'].gsub(/[ ;?@:&]/, '').downcase
@@ -45,7 +46,7 @@ class Api::V1::UsersController < ApplicationController
       user_boardgame.update_attributes(user_boardgame_params)
       render json: new_game.package_json
     else
-      render json: {error: 'Invalid Game Input', status: '400'}
+      render json: {error: 'Invalid Game Input', status: '401'}
     end
   end
 
