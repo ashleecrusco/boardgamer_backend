@@ -31,6 +31,9 @@ class Api::V1::UsersController < ApplicationController
     if !user.boardgames.include?(game)
       user.boardgames << game
     end
+    gameId = user.boardgames.find_by(name: params[:game][:name]).id
+    gameToUpdate = user.user_boardgames.find_by(boardgame_id: gameId)
+    gameToUpdate.update_attributes(owned: true)
   end
 
   def createBoardgame
