@@ -49,7 +49,6 @@ class Api::V1::UsersController < ApplicationController
 
 
   def updateAttribute
-    byebug
     user = User.find(update_attribute_params[:user])
     attribute = update_attribute_params[:attribute]
     game = Boardgame.find(update_attribute_params[:game])
@@ -69,8 +68,7 @@ class Api::V1::UsersController < ApplicationController
   def createBoardgame
     user = User.find(params['id'].to_i)
     new_game = Boardgame.new(game_params)
-    byebug
-
+  
     if new_game.valid?
       new_game.slug = params['form']['name'].gsub(/[ ;?@:&]/, '').downcase
       new_game.save
