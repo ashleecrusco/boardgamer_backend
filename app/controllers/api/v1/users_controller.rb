@@ -49,7 +49,6 @@ class Api::V1::UsersController < ApplicationController
 
 
   def updateAttribute
-    byebug
     user = User.find(update_attribute_params[:user])
     attribute = update_attribute_params[:attribute]
     game = Boardgame.find(update_attribute_params[:game])
@@ -63,6 +62,16 @@ class Api::V1::UsersController < ApplicationController
       gameToUpdate = user.user_boardgames.find_by(boardgame_id: gameId)
       gameToUpdate[attribute] = !gameToUpdate[attribute]
       gameToUpdate.update_attributes(owned: false, "#{attribute}": gameToUpdate[attribute])
+    end
+  end
+
+  def addOrRemoveFriend
+    user = User.find(params['user_id'])
+    friend = User.find(params['friend_id'])
+    if params['removing']
+      user.friendships.where(friend_id: friend.id).destroy_all
+    elsif friend.id != user.id
+      user.friends << friend
     end
   end
 
