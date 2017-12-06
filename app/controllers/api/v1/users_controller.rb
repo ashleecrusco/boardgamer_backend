@@ -48,7 +48,7 @@ class Api::V1::UsersController < ApplicationController
     gameId = user.boardgames.find_by(name: params[:game][:name]).id
     gameToUpdate = user.user_boardgames.find_by(boardgame_id: gameId)
     gameToUpdate.update_attributes(owned: false)
-    
+
   end
 
 
