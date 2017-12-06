@@ -19,6 +19,10 @@ class Api::V1::UsersController < ApplicationController
     user = User.find(user_params[:id])
     render json: {user: user, boardgames: user.package_json, friends: user.friends}
   end
+  
+  def edit
+
+  end
 
   def update
     user = User.find(user_params[:id])
@@ -53,6 +57,7 @@ class Api::V1::UsersController < ApplicationController
 
 
   def updateAttribute
+    byebug
     user = User.find(update_attribute_params[:user])
     attribute = update_attribute_params[:attribute]
     game = Boardgame.find(update_attribute_params[:game])
