@@ -34,6 +34,9 @@ class Api::V1::UsersController < ApplicationController
     gameId = user.boardgames.find_by(name: params[:game][:name]).id
     gameToUpdate = user.user_boardgames.find_by(boardgame_id: gameId)
     gameToUpdate.update_attributes(owned: true)
+    if user.user_boardgames.find_by(boardgame_id: game.id).wishlist === true
+      user.user_boardgames.find_by(boardgame_id: game.id).update_attributes(wishlist: false)
+    end
   end
 
   def removeFromCollection
@@ -45,6 +48,7 @@ class Api::V1::UsersController < ApplicationController
     gameId = user.boardgames.find_by(name: params[:game][:name]).id
     gameToUpdate = user.user_boardgames.find_by(boardgame_id: gameId)
     gameToUpdate.update_attributes(owned: false)
+    
   end
 
 
@@ -61,7 +65,10 @@ class Api::V1::UsersController < ApplicationController
       gameId = user.boardgames.find_by(name: game.name).id
       gameToUpdate = user.user_boardgames.find_by(boardgame_id: gameId)
       gameToUpdate[attribute] = !gameToUpdate[attribute]
-      gameToUpdate.update_attributes(owned: false, "#{attribute}": gameToUpdate[attribute])
+      gameToUpdate.update_attributes("#{attribute}": gameToUpdate[attribute])
+    end
+    if user.user_boardgames.find_by(boardgame_id: game.id).wishlist === true
+      user.user_boardgames.find_by(boardgame_id: game.id).update_attributes(owned: false)
     end
   end
 
