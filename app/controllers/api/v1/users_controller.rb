@@ -72,11 +72,19 @@ class Api::V1::UsersController < ApplicationController
     end
   end
 
+  def addOrRemoveFriend
+    user = User.find(params['user_id'])
+    friend = User.find(params['friend_id'])
+    if params['removing']
+      user.friendships.where(friend_id: friend.id).destroy_all
+    elsif friend.id != user.id
+      user.friends << friend
+    end
+  end
+
   def createBoardgame
     user = User.find(params['id'].to_i)
     new_game = Boardgame.new(game_params)
-
-
     if new_game.valid?
       new_game.slug = params['form']['name'].gsub(/[ ;?@:&]/, '').downcase
       new_game.save
