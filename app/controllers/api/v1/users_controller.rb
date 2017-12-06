@@ -19,14 +19,14 @@ class Api::V1::UsersController < ApplicationController
     user = User.find(user_params[:id])
     render json: {user: user, boardgames: user.package_json, friends: user.friends}
   end
-  
+
   def edit
 
   end
 
   def update
-    user = User.find(user_params[:id])
-    user.update(params)
+    user = User.find(update_user_params[:id])
+    user.update(update_user_params)
   end
 
   def addToCollection
@@ -57,7 +57,6 @@ class Api::V1::UsersController < ApplicationController
 
 
   def updateAttribute
-    byebug
     user = User.find(update_attribute_params[:user])
     attribute = update_attribute_params[:attribute]
     game = Boardgame.find(update_attribute_params[:game])
@@ -130,5 +129,9 @@ class Api::V1::UsersController < ApplicationController
 
   def update_attribute_params
     params.permit(:attribute, :user, :game)
+  end
+
+  def update_user_params
+    params.permit(:id, :profile_image_url)
   end
 end
