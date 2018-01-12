@@ -1,24 +1,18 @@
-# README
+# Boardgamer Client
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+A web app for users who love board games to track their collection and share favorite games with friends. Check it out at https://boardgamer-app.herokuapp.com/login.
 
-Things you may want to cover:
+## Built With
+* Rails
+* Active Record
+* Rack-cors
+* Heroku
+* [Client](https://github.com/ashleecrusco/boardgamer_client)
 
-* Ruby version
+## Authors
+* **Ashlee Crusco** - *Initial work* - [GitHub](https://github.com/ashleecrusco)
+* **Joshua Denenberg** - *Initial work* - [GitHub](https://github.com/Jisho23)
 
-* System dependencies
+## License
+This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
 
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
